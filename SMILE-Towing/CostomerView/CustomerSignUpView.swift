@@ -272,6 +272,7 @@ struct CustomerSignUpView: View {
         }
     }
 }
+
 // String Extension for Regex Matching
 extension String {
     func matchesPattern(regex: String) -> Bool {

@@ -44,13 +44,13 @@ struct DriverVehiclesView: View {
             }
             .navigationTitle("My Towing Vehicles")
             .sheet(isPresented: $showingAddVehicleSheet) {
-                AddVehicleView(vehicles: $vehicles)
+                AddDriverVehicleView(vehicles: $vehicles)
             }
         }
     }
 }
 
-struct AddVehicleView: View {
+struct AddDriverVehicleView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var vehicles: [Vehicle]
     
@@ -82,18 +82,5 @@ struct AddVehicleView: View {
                 }
             }
         }
-    }
-}
-
-struct Vehicle: Identifiable {
-    let id = UUID()
-    var name: String
-    var licensePlate: String
-    var type: String
-}
-
-struct DriverVehiclesView_Previews: PreviewProvider {
-    static var previews: some View {
-        DriverVehiclesView()
     }
 }

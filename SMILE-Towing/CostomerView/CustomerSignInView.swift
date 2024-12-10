@@ -1,7 +1,6 @@
 import SwiftUI
-import FirebaseAuth // Add FirebaseAuth for authentication
+import FirebaseAuth
 import FirebaseFirestore
-
 
 struct CustomerSignInView: View {
     @State private var email: String = UserDefaults.standard.string(forKey: "savedEmail") ?? "" // Load saved email
@@ -11,6 +10,7 @@ struct CustomerSignInView: View {
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
     @State private var navigateToHome: Bool = false
+    @State private var showForgotPasswordView: Bool = false // State for forgot password navigation
     
     var body: some View {
         VStack(spacing: 20) {
@@ -70,6 +70,20 @@ struct CustomerSignInView: View {
             // NavigationLink outside the button to trigger navigation
             NavigationLink(destination: CustomerHome(), isActive: $navigateToHome) {
                 EmptyView() // Placeholder view to control navigation
+            }
+            
+            // Forgot Password Button
+            Button(action: {
+                
+                showForgotPasswordView.toggle() // Show Forgot Password view
+            }) {
+                Text("Forgot Password?")
+                    .foregroundColor(.blue)
+                    .underline()
+                    .font(.subheadline)
+            }
+            .sheet(isPresented: $showForgotPasswordView) {
+                ForgotPasswordView() // Navigate to the Forgot Password View
             }
             
             // "Don't have an account?" with Sign-Up button

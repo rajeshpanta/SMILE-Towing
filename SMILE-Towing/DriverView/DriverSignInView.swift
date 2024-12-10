@@ -10,6 +10,7 @@ struct DriverSignInView: View {
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
     @State private var navigateToHome: Bool = false
+    @State private var showForgotPasswordView: Bool = false // To show Forgot Password screen
 
     var body: some View {
         VStack(spacing: 20) {
@@ -66,6 +67,19 @@ struct DriverSignInView: View {
             }
             .padding(.horizontal)
 
+            // Forgot Password Button
+            Button(action: {
+                showForgotPasswordView = true
+            }) {
+                Text("Forgot Password?")
+                    .foregroundColor(.blue)
+                    .underline()
+                    .font(.subheadline)
+            }
+            .sheet(isPresented: $showForgotPasswordView) {
+                ForgotPasswordView() // Show Forgot Password view
+            }
+
             // NavigationLink outside the button to trigger navigation
             NavigationLink(destination: DriverHome(), isActive: $navigateToHome) {
                 EmptyView() // Placeholder view to control navigation
@@ -105,7 +119,7 @@ struct DriverSignInView: View {
             return
         }
 
-        if !email.matches(regex: #"^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|icloud\.com)$"#) {
+        if !email.matche(regex: #"^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|icloud\.com)$"#) {
             alertMessage = "Please enter a valid email ending with @gmail.com, @yahoo.com, or @icloud.com."
             showAlert = true
             return
